@@ -22,7 +22,7 @@ public:
         //If we want to get the maximum of palindromic substring, we can get:
         int max_len = 0;
         for (int i = 0; i < dp.size(); ++i) {
-          if (max_len < dp[i]) max_len = dp[i];
+          if (max_len < dp[i]) max_len = dp[i] - 1;
         }
         //cout<<new_s<<endl;
         //for(int i = 0; i < dp.size(); ++i) cout<<dp[i]<<endl;
