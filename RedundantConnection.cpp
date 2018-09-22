@@ -4,15 +4,15 @@
 class DSU {
 public:
     vector<int> parent; //parent[x]表示x的根结点
-    vector<int> rank; //rank[x]表示x的排名，如果x是根结点，排名会升高
+    //vector<int> rank; //rank[x]表示x的排名，如果x是根结点，排名会升高
     
 public:
     DSU(int n) {
         parent.resize(n);
-        rank.resize(n);
+        //rank.resize(n);
         for(int i=0;i<n;++i) {
             parent[i]=i;
-            rank[i]=0;
+            //rank[i]=0;
         }
     }
     
@@ -21,7 +21,14 @@ public:
         return parent[x];
     }
     
-    bool merge(int x,int y) { //将x所属的结点集与y所属的结点集，合并
+    bool merge(int x,int y) { //已经不需要rank数据，merge_ori太复杂。直接使用这个函数即可Accept
+        int px=find(x),py=find(y);
+        if(px==py) return false; //x和y的根结点一致，则说明x,y已经在一个集合中，仍然对x与y连接边，说明存在环
+        parent[py]=px;
+        return true;
+    }
+    
+    bool merge_ori(int x,int y) { //将x所属的结点集与y所属的结点集，合并
         int px=find(x),py=find(y);
         if(px==py) return false; //x和y的根结点一致，则说明x,y已经在一个集合中，仍然对x与y连接边，说明存在环
         if(rank[px]<rank[py]) { //py的排名高，说明py更合适当根结点
